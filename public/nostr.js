@@ -234,8 +234,6 @@ const HIVETALK_URL = 'http://localhost:3010/api/v1/nip98';
 const roomName = "TestRoom";
 
 function handleButtonClick() {
-    // NIP98returns a jwt token which is appended to the url for the room authentication
-    // the returned url + jwt then becomes a redirect for the user to enter the room
     fetchWithNostrAuth(HIVETALK_URL, {
         method: 'POST',
         body: JSON.stringify({ room: roomName })
