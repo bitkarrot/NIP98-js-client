@@ -233,6 +233,9 @@ async function fetchWithNostrAuth(url, options = {}) {
 const HIVETALK_URL = 'http://localhost:3010/api/v1/nip98';
 const roomName = "TestRoom";
 
+// in json body, include username, profile pic and any preferred relays
+// so that we don't need to refetch data already captured by current client.
+
 function handleButtonClick() {
     fetchWithNostrAuth(HIVETALK_URL, {
         method: 'POST',
