@@ -60,10 +60,10 @@ app.post('/auth',
             console.log('Relays:', relays);
             console.log('isPresenter', isPresenter);
 
-            // TODO: Redirect to hivetalk room give above info
-            // res.status(302).json({ redirectUrl: '/views/protected.html' });
-
-            res.status(200).json({ message: 'Authentication successful' });
+            // TODO: Redirect to hivetalk room give above info, correctly
+            res.status(200).json({ message: 'Authentication successful',
+                redirectUrl: 'https://staging.hivetalk.org/join/' + room + '?username=' + username + '&avatarURL=' + avatarURL + '&relays=' + relays + '&isPresenter=' + isPresenter
+            });
         } catch (error) {
             res.status(401).json({ error: 'Authentication failed' });
         }

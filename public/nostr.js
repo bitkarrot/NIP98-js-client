@@ -279,8 +279,9 @@ async function handleButtonClick() {
         } else if (response.ok) {
           console.log("reponse.ok", response.ok)
           // Handle successful response that isn't a redirect
-          const protectedContent = await response.text();
-          document.getElementById('protected').innerHTML = protectedContent;
+          const protectedContent = await response.json();
+          console.log(protectedContent['message'], protectedContent['redirectUrl'])
+          document.getElementById('protected').innerHTML = protectedContent['message'];
         } else {
           console.error('Login failed');
         }
