@@ -25,18 +25,23 @@ app.use(cors())
 app.use(express.static(join(__dirname, 'public')));
 app.use(express.json({ limit: '50mb' })); // Increase the limit if necessary
 
-// Option 2: More secure configuration with specific options
-app.use(cors({
-  origin: ['http://localhost:5173', 'http://localhost:3001'], // Add your frontend URL(s)
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true // If you're using cookies/sessions
-}))
+// CORS configuration
+const corsOptions = {
+    origin: process.env.NODE_ENV === 'production'
+      ? ['https://nip-98-js-sample.vercel.app/', ]  // Production domains
+      : ['http://localhost:3000'],  // Development
+    credentials: true,  // Important for cookies/sessions
+    methods: ['GET', 'POST'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+  };
+
+app.use(cors(corsOptions));
 
 // Serve the index.html file at the root URL
 app.get('/', (req, res) => {
     res.sendFile(join(__dirname, 'public', 'index.html'));
 });
+
 
 app.post('/protected',
     nostrAuth.middleware(),
