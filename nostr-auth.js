@@ -1,5 +1,4 @@
 import crypto from 'crypto';
-//import * as nobleSecp256k1 from '@noble/secp256k1';
 import { verifyEvent } from 'nostr-tools';
 
 
@@ -128,60 +127,9 @@ export class NostrAuthMiddleware {
     }
 
     async verifySignature(event) { 
-
         let isGood = verifyEvent(event)
         console.log("Verify Event", isGood)
         return isGood
     }
 
-    // async verifySignature(event) {
-    //     try {
-    //         // First verify that the event ID is correct
-    //         const calculatedId = await this.calculateEventId(event);
-    //         if (calculatedId !== event.id) {
-    //             console.error('Event ID verification failed');
-    //             return false;
-    //         }
-    //         console.log("check verifySignature")
-
-    //         // Convert the public key to a Uint8Array
-    //         const pubkeyBytes = this.hexToBytes(event.pubkey);
-            
-    //         // Convert the signature to a Uint8Array
-    //         const sigBytes = this.hexToBytes(event.sig);
-            
-    //         // Convert the event ID to a Uint8Array
-    //         const eventIdBytes = this.hexToBytes(event.id);
-
-    //         console.log('Available methods:', Object.keys(nobleSecp256k1));
-    //         console.log('id', event.id)
-    //         console.log('pubkey', event.pubkey)
-    //         console.log("sig ", event.sig)
-      
-    //         // Verify the signature using the noble-secp256k1 library
-    //         const verified = await nobleSecp256k1.verify(
-    //             event.sig,     // signature
-    //             event.id,      // message (event id)
-    //             event.pubkey   // public key
-    //         );
-
-    //         console.log("check verified", verified)
-
-    //         return verified;
-    //     } catch (error) {
-    //         console.error('Signature verification error:', error);
-    //         return false;
-    //     }
-    // }
-
-    // Utility function to convert hex string to Uint8Array
-
-
-    hexToBytes(hex) {
-        const bytes = new Uint8Array(hex.length / 2);
-        for (let i = 0; i < hex.length; i += 2) {
-            bytes[i / 2] = parseInt(hex.slice(i, i + 2), 16);
-        }
-        return bytes;
-    }
 }

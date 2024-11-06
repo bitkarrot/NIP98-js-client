@@ -181,7 +181,6 @@ class NostrAuthClient {
       event.id = await this.calculateId(event);
   
       // Sign the event
-//      event.sig = await signEvent(event.id, this.publicKey);
       event.sig = await window.nostr.signEvent(event);
       return event;
     }
