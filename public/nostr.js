@@ -278,7 +278,6 @@ async function handleButtonClick() {
 
         } else if (response.ok) {
           console.log("reponse.ok", response.ok)
-
           // Handle successful response that isn't a redirect
           const protectedContent = await response.text();
           document.getElementById('protected').innerHTML = protectedContent;

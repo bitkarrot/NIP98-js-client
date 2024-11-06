@@ -61,7 +61,9 @@ app.post('/auth',
             console.log('isPresenter', isPresenter);
 
             // TODO: Redirect to hivetalk room give above info
-            res.status(302).json({ redirectUrl: '/views/protected.html' });
+            // res.status(302).json({ redirectUrl: '/views/protected.html' });
+
+            res.status(200).json({ message: 'Authentication successful' });
         } catch (error) {
             res.status(401).json({ error: 'Authentication failed' });
         }
