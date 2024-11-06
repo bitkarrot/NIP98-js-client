@@ -235,6 +235,7 @@ const roomName = "TestRoom";
 const username = 'testone';
 const avatarURL = 'https://example.com/img.png'
 const preferredRelays = ['wss://hivetalk.nostr1.com']
+const isModerator = true
 
 // in json body, include username, profile pic and any preferred relays
 // so that we don't need to refetch data already captured by current client.
@@ -249,7 +250,8 @@ function handleButtonClick() {
             room: roomName, 
             username: username,
             avatarURL: avatarURL,
-            relays: preferredRelays
+            relays: preferredRelays, 
+            isPresenter: isModerator
         })
       })
       .then(response => {
