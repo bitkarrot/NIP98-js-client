@@ -2,7 +2,7 @@ var loggedIn;
 let pubkey = "";
 
 // Access the functions from the global object
-const { relayInit, generateSecretKey, getPublicKey, signEvent, SimplePool } = NostrTools;
+const { relayInit, generateSecretKey, getPublicKey, SimplePool } = NostrTools;
 const nip19 = NostrTools.nip19;
 
 checkLoginStatus();
@@ -105,7 +105,6 @@ function loadUser() {
     }
 }
 
-
 function displayUserInfo() {
     setTimeout(() => { // Adding a delay to ensure data is available
         // Assuming userInfo is stored in localStorage or accessible through the event
@@ -176,13 +175,14 @@ class NostrAuthClient {
         content: '',
         pubkey: this.publicKey
       };
-  
+      console.log('event: ', event)
+
       // Calculate event ID
       event.id = await this.calculateId(event);
   
       // Sign the event
-      event.sig = await signEvent(event.id, this.publicKey);
-  
+//      event.sig = await signEvent(event.id, this.publicKey);
+      event.sig = await window.nostr.signEvent(event);
       return event;
     }
   
@@ -217,6 +217,7 @@ async function fetchWithNostrAuth(url, options = {}) {
   
     // Convert event to base64
     const authHeader = 'Nostr ' + btoa(JSON.stringify(authEvent));
+    console.log('Inside nostr.js Authorization headers: ', authHeader )
   
     // Add auth header to request
     const headers = new Headers(options.headers || {});
@@ -230,7 +231,7 @@ async function fetchWithNostrAuth(url, options = {}) {
   }
   
 // Usage example:
-const HIVETALK_URL = 'http://localhost:3010/api/v1/nip98';
+const HIVETALK_URL = 'http://localhost:3000/protected'
 const roomName = "TestRoom";
 
 // in json body, include username, profile pic and any preferred relays
