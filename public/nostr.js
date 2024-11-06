@@ -239,7 +239,7 @@ async function fetchWithNostrAuth(url, options = {}) {
   }
   
 // Usage example:
-const HIVETALK_URL = 'http://localhost:3000/protected'
+const HIVETALK_URL = 'https://nip-98-js-sample.vercel.app/protected'
 const roomName = "TestRoom";
 const preferredRelays = ['wss://hivetalk.nostr1.com']
 const isModerator = true
