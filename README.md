@@ -2,10 +2,13 @@
 
 For hivetalk remote room auth for nostr users
 
-Potential Use cases:
+In this sample repo, we have a sample login page, and after nostr login there is a NIP98 auth button which allows the user to auth
+and retrieve content from a server API endpoint '/protected'. 
 
-- NIP 98 auth on success - can automatically forward the user to a remote http site
-- NIP 98 auth on success allows user access to remote http site with jwt token
+Other Possible Use cases:
 
-- NIP98 auth on success - returns a jwt token which is appended to the url for the room authentication,
-the returned url + jwt then becomes a redirect for the user to enter the room
+- NIP 98 auth on success
+  - can automatically forward the user to a remote http site
+  - show content from remote site on current client
+  - redirect to another site with auth
+  - returns a jwt token, to allow remote http site auth.
