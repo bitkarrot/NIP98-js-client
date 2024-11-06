@@ -232,6 +232,9 @@ async function fetchWithNostrAuth(url, options = {}) {
 // Usage example:
 const HIVETALK_URL = 'http://localhost:3000/protected'
 const roomName = "TestRoom";
+const username = 'testone';
+const avatarURL = 'https://example.com/img.png'
+const preferredRelays = ['wss://hivetalk.nostr1.com']
 
 // in json body, include username, profile pic and any preferred relays
 // so that we don't need to refetch data already captured by current client.
@@ -239,7 +242,15 @@ const roomName = "TestRoom";
 function handleButtonClick() {
     fetchWithNostrAuth(HIVETALK_URL, {
         method: 'POST',
-        body: JSON.stringify({ room: roomName })
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ 
+            room: roomName, 
+            username: username,
+            avatarURL: avatarURL,
+            relays: preferredRelays
+        })
       })
       .then(response => {
           console.log('Raw response:', response);

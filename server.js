@@ -11,10 +11,13 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const app = express();
+const nostrAuth = new NostrAuthMiddleware();
 
 // CORS Configuration
 // Option 1: Allow all origins (for development only)
 app.use(cors())
+app.use(express.static(join(__dirname, 'public')));
+app.use(express.json({ limit: '50mb' })); // Increase the limit if necessary
 
 // Option 2: More secure configuration with specific options
 app.use(cors({
@@ -29,13 +32,17 @@ app.get('/', (req, res) => {
     res.sendFile(join(__dirname, 'public', 'index.html'));
 });
 
-app.use(express.static(join(__dirname, 'public')));
-app.use(express.json({ limit: '50mb' })); // Increase the limit if necessary
 
-const nostrAuth = new NostrAuthMiddleware();
 app.post('/protected',
     nostrAuth.middleware(),
     (req, res) => {
+        // Accessing the JSON body sent by the client
+        const { room, username, avatarURL, relays } = req.body;
+        console.log('Room:', room);
+        console.log('Username:', username);
+        console.log('Avatar URL:', avatarURL);
+        console.log('Relays:', relays);
+
         res.json({ message: 'Protected data' });
     }
 );
