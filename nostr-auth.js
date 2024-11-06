@@ -1,3 +1,5 @@
+// server side middleware example
+
 import crypto from 'crypto';
 import { verifyEvent } from 'nostr-tools';
 
