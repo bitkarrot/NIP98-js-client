@@ -249,27 +249,36 @@ const isModerator = true
 async function handleButtonClick() {
     try {
       const response = await fetchWithNostrAuth(HIVETALK_URL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          room: roomName,
-          username: username,
-          avatarURL: avatarURL,
-          relays: preferredRelays,
-          isPresenter: isModerator,
-        }),
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            room: roomName,
+            username: username,
+            avatarURL: avatarURL,
+            relays: preferredRelays,
+            isPresenter: isModerator,
+          }),
       });
 
-      if (response.ok) {
-        // Render the protected content in the DOM
-        const protectedContent = await response.text();
-        document.getElementById('protected').innerHTML = protectedContent;
-      } else {
-        console.error('Login failed');
-        document.getElementById('protected').innerHTML = 'Auth failed';
-      }
+        if (response.status === 302) {
+          console.log("response status is 302")
+          // Get the redirect URL from the response
+          const data = await response.json();
+          // Redirect to the protected page
+          window.location.href = data.redirectUrl;
+
+        } else if (response.ok) {
+          console.log("reponse.ok", response.ok)
+
+          // Handle successful response that isn't a redirect
+          const protectedContent = await response.text();
+          document.getElementById('protected').innerHTML = protectedContent;
+        } else {
+          console.error('Login failed');
+        }
+
     } catch (error) {
       console.error('Error:', error);
     }

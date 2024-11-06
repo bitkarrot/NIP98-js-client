@@ -41,16 +41,19 @@ app.get('/', (req, res) => {
 app.post('/protected',
     nostrAuth.middleware(),
     (req, res) => {
-        // Accessing the JSON body sent by the client
-        const { room, username, avatarURL, relays, isPresenter } = req.body;
-        console.log('Room:', room);
-        console.log('Username:', username);
-        console.log('Avatar URL:', avatarURL);
-        console.log('Relays:', relays);
-        console.log('isPresenter', isPresenter);
+        try {
+            // Accessing the JSON body sent by the client
+            const { room, username, avatarURL, relays, isPresenter } = req.body;
+            console.log('Room:', room);
+            console.log('Username:', username);
+            console.log('Avatar URL:', avatarURL);
+            console.log('Relays:', relays);
+            console.log('isPresenter', isPresenter);
 
-        //res.json({ message: 'Protected data' });
-        res.sendFile(views.protected);
+            res.status(302).json({ redirectUrl: '/views/protected.html' });
+        } catch (error) {
+            res.status(401).json({ error: 'Authentication failed' });
+        }
     }
 );
 
