@@ -1,5 +1,7 @@
 var loggedIn;
 let pubkey = "";
+let username = "";
+let avatarURL = "https://cdn-icons-png.flaticon.com/512/149/149071.png";
 
 // Access the functions from the global object
 const { relayInit, generateSecretKey, getPublicKey, SimplePool } = NostrTools;
@@ -117,13 +119,20 @@ function displayUserInfo() {
                 let npub = nip19.npubEncode(user.pubkey)
                 var npubElement = document.getElementById('npub');
 
-                // set avatar
                 const avatarElement = document.getElementById('avatar');
-                avatarElement.src = user.picture;
                 avatarElement.style.display = 'block';
 
+                // set avatar
+                if (user.picture === undefined) {
+                    // use default avatar pic
+                    avatarElement.src = "https://cdn-icons-png.flaticon.com/512/149/149071.png";
+                } else {
+                    avatarElement.src = user.picture;
+                    avatarURL = user.picture;
+                }
+
                 // set username
-                let username = user.name;
+                username = user.name;
                 if (username === undefined) {
                     username = npub;
                 }
@@ -232,31 +241,36 @@ async function fetchWithNostrAuth(url, options = {}) {
 // Usage example:
 const HIVETALK_URL = 'http://localhost:3000/protected'
 const roomName = "TestRoom";
-const username = 'testone';
-const avatarURL = 'https://example.com/img.png'
 const preferredRelays = ['wss://hivetalk.nostr1.com']
 const isModerator = true
 
 // in json body, include username, profile pic and any preferred relays
 // so that we don't need to refetch data already captured by current client.
-
-function handleButtonClick() {
-    fetchWithNostrAuth(HIVETALK_URL, {
+async function handleButtonClick() {
+    try {
+      const response = await fetchWithNostrAuth(HIVETALK_URL, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json',
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ 
-            room: roomName, 
-            username: username,
-            avatarURL: avatarURL,
-            relays: preferredRelays, 
-            isPresenter: isModerator
-        })
-      })
-      .then(response => {
-          console.log('Raw response:', response);
-          return response.json()
-      })
-      .then(data => console.log('JSON data:', data));
-}
+        body: JSON.stringify({
+          room: roomName,
+          username: username,
+          avatarURL: avatarURL,
+          relays: preferredRelays,
+          isPresenter: isModerator,
+        }),
+      });
+
+      if (response.ok) {
+        // Render the protected content in the DOM
+        const protectedContent = await response.text();
+        document.getElementById('protected').innerHTML = protectedContent;
+      } else {
+        console.error('Login failed');
+        document.getElementById('protected').innerHTML = 'Auth failed';
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  }

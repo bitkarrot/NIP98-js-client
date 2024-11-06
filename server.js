@@ -5,10 +5,16 @@ import { dirname, join } from 'path';
 import { NostrAuthMiddleware } from './nostr-auth.js';  
 import cors from 'cors';
 
+import path from 'path';
 
 // Since __dirname is not available in ES modules, we need to create it
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+
+const views  = {
+    protected: path.join(__dirname, 'public/views/protected.html'),
+}
+console.log(views)
 
 const app = express();
 const nostrAuth = new NostrAuthMiddleware();
@@ -32,7 +38,6 @@ app.get('/', (req, res) => {
     res.sendFile(join(__dirname, 'public', 'index.html'));
 });
 
-
 app.post('/protected',
     nostrAuth.middleware(),
     (req, res) => {
@@ -44,7 +49,8 @@ app.post('/protected',
         console.log('Relays:', relays);
         console.log('isPresenter', isPresenter);
 
-        res.json({ message: 'Protected data' });
+        //res.json({ message: 'Protected data' });
+        res.sendFile(views.protected);
     }
 );
 
