@@ -12,3 +12,6 @@ Other Possible Use cases:
   - show content from remote site on current client
   - redirect to another site with auth
   - returns a jwt token, to allow remote http site auth.
+
+
+Note: the relays are not used in the example but is extra code that can be reused for testing other options.
