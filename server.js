@@ -5,7 +5,7 @@ import { dirname, join } from 'path';
 import { NostrAuthMiddleware } from './nostr-auth.js';  
 import cors from 'cors';
 import path from 'path';
-import dotenv from 'dotenv';
+// import dotenv from 'dotenv';
 
 const whitelist = process.env.NODE_ENV === 'production'
   ? [
@@ -41,7 +41,8 @@ const app = express();
 const nostrAuth = new NostrAuthMiddleware();
 app.use(express.static(join(__dirname, 'public')));
 app.use(express.json({ limit: '50mb' })); // Increase the limit if necessary
-app.use(cors(corsOptions));
+//app.use(cors(corsOptions));
+app.use(cors())
 
 // Serve the index.html file at the root URL
 app.get('/', (req, res) => {
@@ -61,14 +62,15 @@ app.post('/auth',
             console.log('isPresenter', isPresenter);
 
             // TODO: Redirect to hivetalk room give above info, correctly
-            res.status(200).json({ message: 'Authentication successful',
-                redirectUrl: 'https://staging.hivetalk.org/join/' + room + '?username=' + username + '&avatarURL=' + avatarURL + '&relays=' + relays + '&isPresenter=' + isPresenter
-            });
+            res.status(200).json({ message: 'Authentication successful'});
+
         } catch (error) {
+            console.log("authentication failed")
             res.status(401).json({ error: 'Authentication failed' });
         }
     }
 );
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

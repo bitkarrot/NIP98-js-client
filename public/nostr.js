@@ -220,6 +220,7 @@ async function fetchWithNostrAuth(url, options = {}) {
     const method = options.method || 'GET';
     const payload = options.body || null;
   
+    console.log('fetchwithnostr auth, url encoded as: ', url )
     const client = new NostrAuthClient(pubkey);
     const authEvent = await client.createAuthEvent(url, method, payload);
   
@@ -270,26 +271,26 @@ async function handleButtonClick() {
             relays: preferredRelays,
             isPresenter: isModerator,
           }),
-      });
-
+      }).then(response => { 
+        console.log('response', response.status)
         if (response.status === 302) {
-          console.log("response status is 302")
-          // Get the redirect URL from the response
-          const data = await response.json();
-          // Redirect to the protected page
-          window.location.href = data.redirectUrl;
-
-        } else if (response.ok) {
-          console.log("reponse.ok", response.ok)
-          // Handle successful response that isn't a redirect
-          const protectedContent = await response.json();
-          console.log(protectedContent['message'], protectedContent['redirectUrl'])
-          document.getElementById('protected').innerHTML = protectedContent['message'];
-        } else {
-          console.error('Login failed');
-        }
+            console.log("response status is 302") // Get the redirect URL from the response
+            const data = response.json();
+            window.location.href = data.redirectUrl;
+          } else if (response.ok) {
+            console.log("response.ok", response.ok)
+            return response.json();
+          } else {
+            console.error('Login failed');
+          }
+      }).then(data => {
+        console.log('auth success: ', data);
+        document.getElementById('protected').innerHTML = data['message'];
+      })
 
     } catch (error) {
       console.error('Error:', error);
+      document.getElementById('protected').innerHTML = error;
+
     }
   }

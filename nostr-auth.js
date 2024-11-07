@@ -71,11 +71,14 @@ export class NostrAuthMiddleware {
 
         // 3. Check URL
         const urlTag = event.tags.find(tag => tag[0] === 'u');
+
+        console.log('urltag: ', urlTag[1])
+        console.log('full url: ', this.getFullUrl(req))
+
         if (!urlTag || urlTag[1] !== this.getFullUrl(req)) {
             return false;
         }
         console.log("check URL")
-
 
         // 4. Check method
         const methodTag = event.tags.find(tag => tag[0] === 'method');
@@ -83,7 +86,6 @@ export class NostrAuthMiddleware {
             return false;
         }
         console.log("check method")
-
 
         // 5. Check payload hash if present
         if (req.body && Object.keys(req.body).length > 0) {
@@ -104,6 +106,7 @@ export class NostrAuthMiddleware {
     // Utility functions
     getFullUrl(req) {
         return `${req.protocol}://${req.get('host')}${req.originalUrl}`;
+       //  return `https://${req.get('host')}${req.originalUrl}`;
     }
 
     async sha256(message) {
