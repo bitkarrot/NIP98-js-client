@@ -69,7 +69,7 @@
 
     <div class="mt-5 mb-8">
       <b>Test remote auth:</b>    
-        <p> click on the link below to remote auth nostr userto another another server
+        <p> click on the button below to remote auth a nostr user<br/>
         </p>
         <!-- Submit button -->
         <button id="sendButton" onclick="handleButtonClick()">Auth NIP98</button>
@@ -78,9 +78,15 @@
     </main>
     <main class="container" id="protected-container">
     <div class="flex mb-8 mt-10">
-      <p id="protected"></p>
+      <p id="protected" style="color: yellow;"></p>
     </div>
+  </main>
 
+  <main class="container" >
+    <p>
+      Clicking the above button will send a request with Authorization: Nostr <i>base64 encoded</i> to the
+      <i> <a href="https://nip98-vercel-api.vercel.app/api/auth"> https://nip98-vercel-api.vercel.app/api/auth  </a></i>endpoint.
+    </p>
   </main>
 
   <footer>
@@ -92,7 +98,10 @@
         </ul>
         <ul>
           <li>
-            <a href="/">nip98.hivetalk.org</a>
+            <a href="/">Home</a>
+          </li>
+          <li>
+            <a href="https://github.com/bitkarrot/NIP98-js-client>">Github</a>
           </li>
         </ul>
       </nav>
