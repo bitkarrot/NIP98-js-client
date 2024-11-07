@@ -238,24 +238,27 @@ async function fetchWithNostrAuth(url, options = {}) {
     });
   }
   
-// Usage example:
-let HIVETALK_URL = 'http://localhost:3000';
-
-if ( process.env.NODE_ENV === 'production') {
-  HIVETALK_URL =  'https://nip-98-js-sample.vercel.app/';
+// Helper function to get base domain/host with port if needed
+function getBaseUrl() {
+  // Get the full host (includes port if it exists)
+  const host = window.location.host;
+  // Get the protocol (http: or https:)
+  const protocol = window.location.protocol;
+  // Combine them
+  return `${protocol}//${host}`;
 }
 
 // in json body, include username, profile pic and any preferred relays
 // so that we don't need to refetch data already captured by current client.
 async function handleButtonClick() {
+
   const roomName = "TestRoom";
   const preferredRelays = ['wss://hivetalk.nostr1.com']
   const isModerator = true;
 
   try {
-      console.log('HIVETALK_URL', HIVETALK_URL)
-
-      const response = await fetchWithNostrAuth(HIVETALK_URL + '/auth', {
+      const baseUrl = getBaseUrl();
+      const response = await fetchWithNostrAuth(`${baseUrl}/auth`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
