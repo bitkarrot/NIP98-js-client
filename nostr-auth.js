@@ -105,8 +105,8 @@ export class NostrAuthMiddleware {
 
     // Utility functions
     getFullUrl(req) {
-        return `${req.protocol}://${req.get('host')}${req.originalUrl}`;
-       //  return `https://${req.get('host')}${req.originalUrl}`;
+       // return `${req.protocol}://${req.get('host')}${req.originalUrl}`;
+        return `https://${req.get('host')}${req.originalUrl}`;
     }
 
     async sha256(message) {
