@@ -232,8 +232,11 @@ async function fetchWithNostrAuth(url, options = {}) {
     const headers = new Headers(options.headers || {});
     headers.set('Authorization', authHeader);
   
+    console.log('url: ', url, 'headers: ', headers,  'options: ', options)
+
     // Make the request
     return fetch(url, {
+      method: 'POST',
       ...options,
       headers
     });
@@ -249,8 +252,6 @@ function getBaseUrl() {
   return `${protocol}//${host}`;
 }
 
-// in json body, include username, profile pic and any preferred relays
-// so that we don't need to refetch data already captured by current client.
 async function handleButtonClick() {
 
   const roomName = "TestRoom";
@@ -258,8 +259,10 @@ async function handleButtonClick() {
   const isModerator = true;
 
   try {
-      const baseUrl = getBaseUrl();
-      const response = await fetchWithNostrAuth(`${baseUrl}/auth`, {
+      const baseUrl = "https://nip98-vercel-api.vercel.app/api";
+      const fullURL = `${baseUrl}/auth`;
+
+      await fetchWithNostrAuth(fullURL, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -270,19 +273,19 @@ async function handleButtonClick() {
             avatarURL: avatarURL,
             relays: preferredRelays,
             isPresenter: isModerator,
-          }),
-      }).then(response => { 
-        console.log('response', response.status)
-        if (response.status === 302) {
-            console.log("response status is 302") // Get the redirect URL from the response
-            const data = response.json();
-            window.location.href = data.redirectUrl;
-          } else if (response.ok) {
-            console.log("response.ok", response.ok)
-            return response.json();
-          } else {
-            console.error('Login failed');
-          }
+          })
+        }).then(response => {
+            console.log('response', response.status)
+            if (response.status === 302) {
+                console.log("response status is 302") // Get the redirect URL from the response
+                const data = response.json();
+                window.location.href = data.redirectUrl;
+              } else if (response.ok) {
+                console.log("response.ok", response.ok)
+                return response.json();
+              } else {
+                console.error('Login failed');
+              }
       }).then(data => {
         console.log('auth success: ', data);
         document.getElementById('protected').innerHTML = data['message'];
