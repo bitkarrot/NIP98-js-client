@@ -25,6 +25,8 @@ function updateButtonVisibility() {
     const setRelays = document.getElementById('setrelays');
     const landing = document.getElementById('landing');
     const mainContainer = document.getElementById('main-container');
+    const info = document.getElementById('information');
+    const protected = document.getElementById('protected');
 
     if (loggedIn) {
         loginButton.style.display = 'none';
@@ -32,13 +34,16 @@ function updateButtonVisibility() {
         logoutButton.style.display = 'block';
         landing.style.display = 'none';
         mainContainer.style.display = 'block';
-
+        info.style.display = 'block'
+        protected.style.display = 'block'
     } else {
         loginButton.style.display = 'block';
         setRelays.style.display = 'none';
         logoutButton.style.display = 'none';
         landing.style.display = 'block';
         mainContainer.style.display = 'none';
+        info.style.display = 'none';
+        protected.style.display = 'none';
     }
 }
 
@@ -54,6 +59,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
             document.dispatchEvent(new Event("nlLogout"))
         }
         document.getElementById('logoutButton').addEventListener('click', onLogoutClick);
+
         updateButtonVisibility();
 
     } else {
@@ -250,6 +256,10 @@ function getBaseUrl() {
   const protocol = window.location.protocol;
   // Combine them
   return `${protocol}//${host}`;
+}
+
+async function handleResetClick() {
+  document.getElementById('protected').innerHTML = '';
 }
 
 async function handleButtonClick() {

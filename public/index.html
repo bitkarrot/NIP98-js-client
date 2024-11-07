@@ -73,6 +73,7 @@
         </p>
         <!-- Submit button -->
         <button id="sendButton" onclick="handleButtonClick()">Auth NIP98</button>
+        <button id="resetButton" onclick="handleResetClick()">Reset</button>
     </div>
 
     </main>
@@ -82,7 +83,8 @@
     </div>
   </main>
 
-  <main class="container" >
+
+  <main class="container" id="information">
     <p>
       Clicking the above button will send a request with Authorization: Nostr <i>base64 encoded</i> to the
       <i> <a href="https://nip98-vercel-api.vercel.app/api/auth"> https://nip98-vercel-api.vercel.app/api/auth  </a></i>endpoint.
