@@ -1,5 +1,13 @@
 # NIP98-sample-client
 
+## Usage
+
+Install:  `npm i `
+
+To Run: `npm run start`
+
+## Notes
+
 For hivetalk remote room auth for nostr users
 
 In this sample repo, we have a sample login page, and after nostr login there is a NIP98 auth button which allows the user to auth
