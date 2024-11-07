@@ -69,8 +69,12 @@
 
     <div class="mt-5 mb-8">
       <b>Test remote auth:</b>    
-        <p> click on the button below to remote auth a nostr user<br/>
-        </p>
+
+      <p>
+        Clicking the Auth button will send a request with Authorization: Nostr <i>base64 encoded</i> to the
+        <i> <a href="https://nip98-vercel-api.vercel.app/api/auth"> https://nip98-vercel-api.vercel.app/api/auth  </a></i>endpoint.
+      </p>
+
         <!-- Submit button -->
         <button id="sendButton" onclick="handleButtonClick()">Auth NIP98</button>
         <button id="resetButton" onclick="handleResetClick()">Reset</button>
@@ -81,14 +85,6 @@
     <div class="flex mb-8 mt-10">
       <p id="protected" style="color: yellow;"></p>
     </div>
-  </main>
-
-
-  <main class="container" id="information">
-    <p>
-      Clicking the above button will send a request with Authorization: Nostr <i>base64 encoded</i> to the
-      <i> <a href="https://nip98-vercel-api.vercel.app/api/auth"> https://nip98-vercel-api.vercel.app/api/auth  </a></i>endpoint.
-    </p>
   </main>
 
   <footer>
@@ -114,10 +110,6 @@
   <script src="./relay.js"></script>
 
   <script>
-    // Load relays from localStorage on page load
-    let relays = localStorage.getItem('relays') ?
-      localStorage.getItem('relays').split(',') : [];
-    console.log('Relays on index page :', relays);
 
     // List of supported image extensions
     const imageExtensions = ['.gif', '.jpg', '.jpeg', '.png', '.webp', '.bmp', '.svg'];

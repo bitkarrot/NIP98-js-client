@@ -1,3 +1,7 @@
+// Load relays from localStorage on page load
+let relays = localStorage.getItem('relays') ?
+    localStorage.getItem('relays').split(',') : [];
+//    console.log('Relays on index page :', relays);
 
 function getRelays() {
     relays = localStorage.getItem('relays') ?
@@ -17,8 +21,8 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(response => response.text())
             .then(html => {
                 document.getElementById('main-container').innerHTML = html;
-                let relays = getRelays();
-                console.log('Relays:', relays);
+                let setrelays = getRelays();
+                console.log('Relays:', setrelays);
                 updateDisplay();
                 console.log(" clicked on set relays")
             })

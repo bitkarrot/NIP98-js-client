@@ -25,8 +25,7 @@ function updateButtonVisibility() {
     const setRelays = document.getElementById('setrelays');
     const landing = document.getElementById('landing');
     const mainContainer = document.getElementById('main-container');
-    const info = document.getElementById('information');
-    const protected = document.getElementById('protected');
+    const protected = document.getElementById('protected-container');
 
     if (loggedIn) {
         loginButton.style.display = 'none';
@@ -34,7 +33,6 @@ function updateButtonVisibility() {
         logoutButton.style.display = 'block';
         landing.style.display = 'none';
         mainContainer.style.display = 'block';
-        info.style.display = 'block'
         protected.style.display = 'block'
     } else {
         loginButton.style.display = 'block';
@@ -42,7 +40,6 @@ function updateButtonVisibility() {
         logoutButton.style.display = 'none';
         landing.style.display = 'block';
         mainContainer.style.display = 'none';
-        info.style.display = 'none';
         protected.style.display = 'none';
     }
 }
