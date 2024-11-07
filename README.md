@@ -7,7 +7,7 @@ and retrieve content from a remote server API endpoint.
 
 remote API endpoint: `https://nip98-vercel-api.vercel.app/api/auth`
 
-remote repo: https://github.com/bitkarrot/nip98-vercel-api
+remote API server repo: https://github.com/bitkarrot/nip98-vercel-api
 
 ## Other Possible Use cases:
 
