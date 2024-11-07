@@ -6,6 +6,8 @@ Install:  `npm i `
 
 To Run: `npm run start`
 
+For the remote Auth API server see this repository: https://github.com/bitkarrot/nip98-vercel-api
+
 ## Notes
 
 For hivetalk remote room auth for nostr users
@@ -14,8 +16,6 @@ In this sample repo, we have a sample login page, and after nostr login there is
 and retrieve content from a remote server API endpoint.
 
 remote API endpoint: `https://nip98-vercel-api.vercel.app/api/auth`
-
-remote API server repo: https://github.com/bitkarrot/nip98-vercel-api
 
 ## Other Possible Use cases:
 
