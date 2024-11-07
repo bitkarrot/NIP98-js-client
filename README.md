@@ -6,7 +6,8 @@ Install:  `npm i `
 
 To Run: `npm run start`
 
-For the remote Auth API server see this repository: https://github.com/bitkarrot/nip98-vercel-api
+For the remote Auth API server see this repository:
+https://github.com/bitkarrot/nip98-vercel-api
 
 ## Notes
 
