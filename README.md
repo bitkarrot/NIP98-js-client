@@ -1,5 +1,10 @@
 # NIP98-sample-client
 
+## Specification
+
+See specification reference at: [https://github.com/nostr-protocol/nips/blob/master/98.md](https://github.com/nostr-protocol/nips/blob/master/98.md)
+
+
 ## Usage
 
 Install:  `npm i `
@@ -7,7 +12,7 @@ Install:  `npm i `
 To Run: `npm run start`
 
 For the remote Auth API server see this repository:
-https://github.com/bitkarrot/nip98-vercel-api
+[https://github.com/bitkarrot/nip98-vercel-api](https://github.com/bitkarrot/nip98-vercel-api)
 
 ## Notes
 
